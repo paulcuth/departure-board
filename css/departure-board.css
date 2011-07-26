@@ -11,19 +11,20 @@
     padding:  0.36em;
     display: inline-block;
 	height: 1.3em;
+	line-height: 1.3em;
     background: rgb(30, 30, 30);
     -webkit-border-radius: 0.21em;
+    -moz-border-radius: 0.21em;
+    border-radius: 0.21em;
     color: #eee;
 	font-family: Helvetica;
-	font-size: 24px;
-	vertical-align: middle;
+	font-size: 18px;
 }
 
 
 
 
 .departure-board span.letter {
-	vertical-align: middle;
 	display: inline-block;
 	width: 1em;
 	margin: 0 .1em;
@@ -31,10 +32,21 @@
 	text-align: center;
 	position: relative;
 
-	-webkit-box-shadow:  
-		inset .14em 0 .28em rgba(0, 0, 0, .9), 
-		inset -.14em 0 .28em rgba(0, 0, 0, .9);
-	
+	background: -webkit-gradient(linear, center top, center bottom, 
+		color-stop(0, rgba(0, 0, 0, 1)), 
+		color-stop(.05, rgba(30, 30, 30, 1)),  
+		color-stop(1.0, rgba(50, 50, 60, 1)));	
+
+	background: -moz-linear-gradient(top, 
+		rgba(0, 0, 0, 1) 0%, 
+		rgba(30, 30, 30, 1) 5%,  
+		rgba(50, 50, 60, 1) 100%);	
+
+}
+
+
+.departure-board span.letter,
+.departure-board span.flap.falling span.text {
 	-webkit-box-shadow: 
 		inset 0 -.07em 0 rgba(50, 50, 50, .7), 
 		inset 0 -.14em 0 rgba(0, 0, 0, .7), 
@@ -42,10 +54,12 @@
 		inset -.14em 0 .28em rgba(0, 0, 0, .9),	
 		0 .07em 0 rgba(255, 255, 255, .2); 
 
-	background: -webkit-gradient(linear, center top, center bottom, 
-		color-stop(0, rgba(0, 0, 0, 1)), 
-		color-stop(.05, rgba(30, 30, 30, 1)),  
-		color-stop(1.0, rgba(50, 50, 60, 1)));	
+	-moz-box-shadow: 
+		inset 0 -.07em 0 rgba(50, 50, 50, .7), 
+		inset 0 -.14em 0 rgba(0, 0, 0, .7), 
+		inset .14em 0 .28em rgba(0, 0, 0, .9), 
+		inset -.14em 0 .28em rgba(0, 0, 0, .9),	
+		0 .07em 0 rgba(255, 255, 255, .2); 
 }
 
 
@@ -57,9 +71,10 @@
 	position: relative;
 	width: 100%;
 	left: 0;
-	top: .64em;
+	top: .62em;
 	content: " ";
 	display: block;
+	z-index: 2;
 }
 
 
@@ -80,9 +95,9 @@
 .departure-board span.flap {
 	display: block;
 	position: absolute;
-	top: 0;	
-	height: .65em;
+	top: 0em;	
 	width: 1em;
+	height: .65em;
 	margin: 0;
 	overflow: hidden;
 }
@@ -96,7 +111,7 @@
 .departure-board span.bottom {
 	top: .65em;
 }
-	
+
 
 .departure-board span.bottom span.text {
 	position: relative;
@@ -109,15 +124,21 @@
 	display: none;
 	bottom: 0;	
 	top: auto;
-	color: red;
 }
 
 
 .departure-board span.flap.falling span.text {
+	border-top: .03em solid #444;
+	border-bottom: .03em solid #444;
+	
     background: rgb(30, 30, 30);
-	position: absolute;
+	position: relative;
+	display: block;
 	-webkit-transform: scaleY(1); 
-	-webkit-transition: -webkit-transform 1s linear;
+	-moz-transform: scaleY(1); 
+	-webkit-transition: -webkit-transform .05s linear;
+	-moz-transition: -moz-transform .05s linear;
+
 	-webkit-backface-visibility: hidden;
 }
 

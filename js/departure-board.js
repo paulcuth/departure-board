@@ -20,7 +20,7 @@ var DepartureBoard = function (element, options) {
 };
 
 
-DepartureBoard.LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,'()&!?+-";
+DepartureBoard.LETTERS = " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,':()&!?+-";
 
 
 
@@ -42,10 +42,15 @@ DepartureBoard.prototype.spin = function () {
 
 DepartureBoard.prototype.setValue = function (value) {
 	value = value.toUpperCase ();
+	var me = this;
 	
 	for (var i = 0, l = this._letters.length; i < l; i++) {
-		var letterValue = value.substr (i, 1) || '';
-		this._letters[i].setValue (letterValue);
+		(function (i) {
+			window.setTimeout (function () {
+				var letterValue = value.substr (i, 1) || '';
+				me._letters[i].setValue (letterValue);
+			}, 20 * i + Math.random () * 400);
+		})(i);
 	}
 };
 
@@ -60,15 +65,6 @@ DepartureBoard.Letter = function () {
 	this._element = document.createElement ('span');
 	this._element.className = 'letter';
 
-	this._top = document.createElement ('span');
-	this._top.className = 'flap top';
-	this._element.appendChild (this._top);
-	
-	this._topText = document.createElement ('span');
-	this._topText.className = 'text';
-	this._top.appendChild (this._topText);
-	
-
 	this._bottom = document.createElement ('span');
 	this._bottom.className = 'flap bottom';
 	this._element.appendChild (this._bottom);
@@ -77,6 +73,15 @@ DepartureBoard.Letter = function () {
 	this._bottomText.className = 'text';
 	this._bottom.appendChild (this._bottomText);
 
+
+	this._top = document.createElement ('span');
+	this._top.className = 'flap top';
+	this._element.appendChild (this._top);
+	
+	this._topText = document.createElement ('span');
+	this._topText.className = 'text';
+	this._top.appendChild (this._topText);
+	
 
 	this._fold = document.createElement ('span');
 	this._fold.className = 'fold';
@@ -110,7 +115,7 @@ DepartureBoard.Letter.prototype.spin = function (clear) {
 	if (clear !== false) this._stopAt = null;
 	
 	var me = this;	
-	this._interval = window.setTimeout (function () { me._tick (); }, 400);
+	this._interval = window.setInterval (function () { me._tick (); }, 150);
 };
 
 
@@ -137,27 +142,36 @@ DepartureBoard.Letter.prototype._tick = function () {
 	this._falling.style.display = 'block';
 	
 	this._topText.innerHTML = DepartureBoard.LETTERS.charAt (this._index);
+
+	window.setTimeout (function () {
+		me._fallingText.style.WebkitTransitionTimingFunction = 'ease-in';
+		me._fallingText.style.WebkitTransform = 'scaleY(0)';
+		me._fallingText.style.MozTransitionTimingFunction = 'ease-in';
+		me._fallingText.style.MozTransform = 'scaleY(0)';
+	}, 0);
 	
-	this._fallingText.style.WebkitTransform = 'scaleY(0)';
-	 
+
 	window.setTimeout (function () {
 		me._fallingText.innerHTML = me._topText.innerHTML;
-		me._falling.style.display = 'block';
 	
-		me._falling.style.top = 0;
+		me._falling.style.top = '-.03em';
 		me._falling.style.bottom = 'auto';
-		me._falling.style.height = 'auto';
+		me._fallingText.style.top = '-.65em';
 		
-		me._fallingText.style['-webkit-transform'] = 'scaleY(1)';
-	}, 1000);
+		me._fallingText.style.WebkitTransitionTimingFunction = 'ease-out';
+		me._fallingText.style.WebkitTransform = 'scaleY(1)';
+		me._fallingText.style.MozTransitionTimingFunction = 'ease-out';
+		me._fallingText.style.MozTransform = 'scaleY(1)';
+	}, 50);
 	
-	// window.setTimeout (function () {
-	// 	me._bottomText.innerHTML = me._topText.innerHTML;
-	// 	me._falling.style.display = 'none';
-	// 
-	// 	me._falling.style.top = 'auto';
-	// 	me._falling.style.bottom = 0;
-	// }, 2000);
+	 window.setTimeout (function () {
+	 	me._bottomText.innerHTML = me._topText.innerHTML;
+	 	me._falling.style.display = 'none';
+	 
+	 	me._falling.style.top = 'auto';
+	 	me._falling.style.bottom = 0;
+	 	me._fallingText.style.top = 0;		
+	 }, 100);
 	
 
 	if (this._index === this._stopAt) {

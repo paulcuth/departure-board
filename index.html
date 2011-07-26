@@ -9,17 +9,18 @@
 		
 		<script src="./js/departure-board.js"></script>
 		<script>
-			var board = new DepartureBoard (document.getElementById ('test'), { letterCount: 2 });
-			board.spin ();
+			var board = new DepartureBoard (document.getElementById ('test'), { letterCount: 25 });
+			//board.spin ();
+			 	board.setValue ('19:30 London King\'s Cross');
 			
-			// window.setTimeout (function () {
-			// 	board.setValue ('Hello, world!');
-			// }, 2000);
-			// 
-			// window.setTimeout (function () {
-			// 	board.setValue ('Do you like?');
-			// }, 6000);
-
+			window.setTimeout (function () {
+			 	board.setValue ('19:42 Sheffield');
+			}, 20000);
+/*			 
+			window.setTimeout (function () {
+				board.setValue ('Do you like?');
+			}, 6000);
+*/
 		</script>
 	</body>
 </html>
