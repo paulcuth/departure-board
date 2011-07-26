@@ -13,7 +13,7 @@
 	height: 1.3em;
     background: rgb(30, 30, 30);
     -webkit-border-radius: 0.21em;
-    color: white;
+    color: #eee;
 	font-family: Helvetica;
 	font-size: 24px;
 	vertical-align: middle;
@@ -29,6 +29,7 @@
 	margin: 0 .1em;
 	height: 1.3em;
 	text-align: center;
+	position: relative;
 
 	-webkit-box-shadow:  
 		inset .14em 0 .28em rgba(0, 0, 0, .9), 
@@ -48,7 +49,7 @@
 }
 
 
-/*
+
 .departure-board > span.letter:before {
 	border-top: .07em solid rgba(0, 0, 0, .4);
 	border-bottom: .07em solid rgba(255, 255, 255, .08);
@@ -59,7 +60,6 @@
 	top: .64em;
 	content: " ";
 	display: block;
-	position: relative;
 }
 
 
@@ -73,14 +73,51 @@
 }
 
 
+
+
+
+
 .departure-board span.flap {
 	display: block;
 	position: absolute;
 	top: 0;	
 	height: .65em;
+	width: 1em;
 	margin: 0;
 	overflow: hidden;
-	color: red;
-	-webkit-transition: transform .01s linear;
 }
-*/
+
+
+.departure-board span.text {
+	width: 100%;
+}
+	
+
+.departure-board span.bottom {
+	top: .65em;
+}
+	
+
+.departure-board span.bottom span.text {
+	position: relative;
+	top: -.65em;
+}
+	
+
+
+.departure-board span.flap.falling {
+	display: none;
+	bottom: 0;	
+	top: auto;
+	color: red;
+}
+
+
+.departure-board span.flap.falling span.text {
+    background: rgb(30, 30, 30);
+	position: absolute;
+	-webkit-transform: scaleY(1); 
+	-webkit-transition: -webkit-transform 1s linear;
+	-webkit-backface-visibility: hidden;
+}
+
