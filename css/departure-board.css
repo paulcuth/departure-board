@@ -1,12 +1,86 @@
 
+/*
+	Based upon "Designing a departures board with CSS3".
+	http://gampleman.eu/post/1488470623/designing-a-departures-board-with-css3
+*/
 
 
 
+
+.departure-board {
+    padding:  0.36em;
+    display: inline-block;
+	height: 1.3em;
+    background: rgb(30, 30, 30);
+    -webkit-border-radius: 0.21em;
+    color: white;
+	font-family: Helvetica;
+	font-size: 24px;
+	vertical-align: middle;
+}
 
 
 
 
 .departure-board span.letter {
+	vertical-align: middle;
 	display: inline-block;
-	width: 16px;
+	width: 1em;
+	margin: 0 .1em;
+	height: 1.3em;
+	text-align: center;
+
+	-webkit-box-shadow:  
+		inset .14em 0 .28em rgba(0, 0, 0, .9), 
+		inset -.14em 0 .28em rgba(0, 0, 0, .9);
+	
+	-webkit-box-shadow: 
+		inset 0 -.07em 0 rgba(50, 50, 50, .7), 
+		inset 0 -.14em 0 rgba(0, 0, 0, .7), 
+		inset .14em 0 .28em rgba(0, 0, 0, .9), 
+		inset -.14em 0 .28em rgba(0, 0, 0, .9),	
+		0 .07em 0 rgba(255, 255, 255, .2); 
+
+	background: -webkit-gradient(linear, center top, center bottom, 
+		color-stop(0, rgba(0, 0, 0, 1)), 
+		color-stop(.05, rgba(30, 30, 30, 1)),  
+		color-stop(1.0, rgba(50, 50, 60, 1)));	
 }
+
+
+/*
+.departure-board > span.letter:before {
+	border-top: .07em solid rgba(0, 0, 0, .4);
+	border-bottom: .07em solid rgba(255, 255, 255, .08);
+	height: 0;
+	position: relative;
+	width: 100%;
+	left: 0;
+	top: .64em;
+	content: " ";
+	display: block;
+	position: relative;
+}
+
+
+
+
+.departure-board span.fold {
+	display: block;
+	position: absolute;
+	height: 0;
+	top: .65em;
+}
+
+
+.departure-board span.flap {
+	display: block;
+	position: absolute;
+	top: 0;	
+	height: .65em;
+	margin: 0;
+	overflow: hidden;
+	color: red;
+	-webkit-transition: transform .01s linear;
+}
+*/
