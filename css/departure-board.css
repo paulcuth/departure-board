@@ -10,7 +10,6 @@
 .departure-board {
     padding:  0.36em;
     display: inline-block;
-	height: 1.3em;
 	line-height: 1.3em;
     background: rgb(30, 30, 30);
     -webkit-border-radius: 0.21em;

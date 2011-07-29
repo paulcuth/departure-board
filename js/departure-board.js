@@ -8,15 +8,24 @@ var DepartureBoard = function (element, options) {
 	
 	element.className += ' departure-board';
 
-	var letterCount = options.letterCount || 25,
-		letter;
+	var rowCount = options.rowCount || 1,
+		letterCount = options.letterCount || 25,
+		letter,
+		rowElement;
 	
-	for (var i = 0; i < letterCount; i++) {
-		letter = new DepartureBoard.Letter ();
-		this._letters.push (letter);
-		element.appendChild (letter.getElement ());
-	}
-	
+	for (var r = 0; r < rowCount; r++) {
+		this._letters.push ([]);
+
+		rowElement = document.createElement ('div');
+		rowElement.className = 'row';
+		element.appendChild (rowElement);
+		
+		for (var l = 0; l < letterCount; l++) {
+			letter = new DepartureBoard.Letter ();
+			this._letters[r].push (letter);
+			rowElement.appendChild (letter.getElement ());
+		}
+	}	
 };
 
 
@@ -41,16 +50,20 @@ DepartureBoard.prototype.spin = function () {
 
 
 DepartureBoard.prototype.setValue = function (value) {
-	value = value.toUpperCase ();
+	if (!(value instanceof Array)) value = [value];
 	var me = this;
+
+	for (var r = 0, rl = this._letters.length; r < rl; r++) {
+		value[r] = value[r]? value[r].toUpperCase () : '';
 	
-	for (var i = 0, l = this._letters.length; i < l; i++) {
-		(function (i) {
-			window.setTimeout (function () {
-				var letterValue = value.substr (i, 1) || '';
-				me._letters[i].setValue (letterValue);
-			}, 20 * i + Math.random () * 400);
-		})(i);
+		for (var i = 0, l = this._letters[r].length; i < l; i++) {
+			(function (r, i) {
+				window.setTimeout (function () {
+					var letterValue = value[r].substr (i, 1) || '';
+					me._letters[r][i].setValue (letterValue);
+				}, 20 * i + Math.random () * 400);
+			})(r, i);
+		}
 	}
 };
 
@@ -123,6 +136,7 @@ DepartureBoard.Letter.prototype.spin = function (clear) {
 
 DepartureBoard.Letter.prototype.setValue = function (value) {
 	this._stopAt = DepartureBoard.LETTERS.indexOf (value);
+
 	if (this._stopAt < 0) this._stopAt = 0;
 
 	if (!this._interval && this._index != this._stopAt) this.spin (false);
