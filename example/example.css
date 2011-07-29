@@ -1,0 +1,62 @@
+
+
+body {
+	font-family: 'Ovo', serif;
+	font-size: 18px;
+	color: #222;
+	text-align: center;
+}
+
+
+input {
+	width: 550px;
+	font-family: 'Ovo', serif;
+	font-size: 18px;
+	color: #222;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 4px 8px;
+}
+
+
+button {
+	width: 100px;
+	font-family: 'Ovo', serif;
+	font-size: 18px;
+	color: #222;
+	background-color: #eee;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 3px 6px;
+}
+
+
+.search,
+.generator {
+	width: 670px;
+	margin: 50px auto;
+	position: ralative;
+}
+
+
+.generator p {
+	float: left;
+}
+
+
+.generator p.source {
+	float: right;
+	opacity: 0.7;
+	font-size: 0.8em;
+}
+
+
+.generator p.result {
+	clear: both;
+	float: none;
+	margin: 0;
+	text-align: center;
+}
+
+
+

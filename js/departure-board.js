@@ -133,45 +133,46 @@ DepartureBoard.Letter.prototype.setValue = function (value) {
 
 DepartureBoard.Letter.prototype._tick = function () {
 	var me = this,
-		oldValue = DepartureBoard.LETTERS.charAt (this._index);
+		oldValue = DepartureBoard.LETTERS.charAt (this._index),
+		fallingStyle = this._falling.style,
+		fallingTextStyle = this._fallingText.style,
+		newValue;
 	
 
 	this._index = (this._index + 1) % DepartureBoard.LETTERS.length;
+	newValue = DepartureBoard.LETTERS.charAt (this._index);
 
 	this._fallingText.innerHTML = oldValue;
-	this._falling.style.display = 'block';
+	fallingStyle.display = 'block';
 	
-	this._topText.innerHTML = DepartureBoard.LETTERS.charAt (this._index);
+	this._topText.innerHTML = newValue;
 
 	window.setTimeout (function () {
-		me._fallingText.style.WebkitTransitionTimingFunction = 'ease-in';
-		me._fallingText.style.WebkitTransform = 'scaleY(0)';
-		me._fallingText.style.MozTransitionTimingFunction = 'ease-in';
-		me._fallingText.style.MozTransform = 'scaleY(0)';
-	}, 0);
+		fallingTextStyle.WebkitTransitionTimingFunction = fallingTextStyle.MozTransitionTimingFunction = 'ease-in';
+		fallingTextStyle.WebkitTransform = fallingTextStyle.MozTransform ='scaleY(0)';
+	}, 1);
 	
 
 	window.setTimeout (function () {
-		me._fallingText.innerHTML = me._topText.innerHTML;
+		me._fallingText.innerHTML = newValue;
 	
-		me._falling.style.top = '-.03em';
-		me._falling.style.bottom = 'auto';
-		me._fallingText.style.top = '-.65em';
+		fallingStyle.top = '-.03em';
+		fallingStyle.bottom = 'auto';
+		fallingTextStyle.top = '-.65em';
 		
-		me._fallingText.style.WebkitTransitionTimingFunction = 'ease-out';
-		me._fallingText.style.WebkitTransform = 'scaleY(1)';
-		me._fallingText.style.MozTransitionTimingFunction = 'ease-out';
-		me._fallingText.style.MozTransform = 'scaleY(1)';
+		fallingTextStyle.WebkitTransitionTimingFunction = fallingTextStyle.MozTransitionTimingFunction = 'ease-out';
+		fallingTextStyle.WebkitTransform = fallingTextStyle.MozTransform = 'scaleY(1)';
 	}, 50);
 	
-	 window.setTimeout (function () {
-	 	me._bottomText.innerHTML = me._topText.innerHTML;
-	 	me._falling.style.display = 'none';
-	 
-	 	me._falling.style.top = 'auto';
-	 	me._falling.style.bottom = 0;
-	 	me._fallingText.style.top = 0;		
-	 }, 100);
+	
+	window.setTimeout (function () {
+		me._bottomText.innerHTML = newValue;
+		fallingStyle.display = 'none';
+
+		fallingStyle.top = 'auto';
+		fallingStyle.bottom = 0;
+		fallingTextStyle.top = 0;		
+	}, 100);
 	
 
 	if (this._index === this._stopAt) {
