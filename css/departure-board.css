@@ -1,6 +1,6 @@
 
 /*
-	Based upon "Designing a departures board with CSS3".
+	Based upon Jakub Hampl's "Designing a departures board with CSS3".
 	http://gampleman.eu/post/1488470623/designing-a-departures-board-with-css3
 */
 
@@ -20,8 +20,6 @@
 }
 
 
-
-
 .departure-board span.letter {
 	display: inline-block;
 	width: 1em;
@@ -29,22 +27,10 @@
 	height: 1.3em;
 	text-align: center;
 	position: relative;
-
-	background: -webkit-gradient(linear, center top, center bottom, 
-		color-stop(0, rgba(0, 0, 0, 1)), 
-		color-stop(.05, rgba(30, 30, 30, 1)),  
-		color-stop(1.0, rgba(50, 50, 60, 1)));	
-
-	background: -moz-linear-gradient(top, 
-		rgba(0, 0, 0, 1) 0%, 
-		rgba(30, 30, 30, 1) 5%,  
-		rgba(50, 50, 60, 1) 100%);	
-
 }
 
 
-.departure-board span.letter,
-.departure-board span.flap.falling span.text {
+.departure-board span.letter {
 	-webkit-box-shadow: 
 		inset 0 -.07em 0 rgba(50, 50, 50, .7), 
 		inset 0 -.14em 0 rgba(0, 0, 0, .7), 
@@ -58,11 +44,24 @@
 		inset .14em 0 .28em rgba(0, 0, 0, .9), 
 		inset -.14em 0 .28em rgba(0, 0, 0, .9),	
 		0 .07em 0 rgba(255, 255, 255, .2); 
+
+	-o-box-shadow: 
+		inset 0 -.07em 0 rgba(50, 50, 50, .7), 
+		inset 0 -.14em 0 rgba(0, 0, 0, .7), 
+		inset .14em 0 .28em rgba(0, 0, 0, .9), 
+		inset -.14em 0 .28em rgba(0, 0, 0, .9),	
+		0 .07em 0 rgba(255, 255, 255, .2); 
+
+	box-shadow: 
+		inset 0 -.07em 0 rgba(50, 50, 50, .7), 
+		inset 0 -.14em 0 rgba(0, 0, 0, .7), 
+		inset .14em 0 .28em rgba(0, 0, 0, .9), 
+		inset -.14em 0 .28em rgba(0, 0, 0, .9),	
+		0 .07em 0 rgba(255, 255, 255, .2); 
 }
 
 
-
-.departure-board > span.letter:before {
+.departure-board span.letter:before {
 	border-top: .07em solid rgba(0, 0, 0, .4);
 	border-bottom: .07em solid rgba(255, 255, 255, .08);
 	height: 0;
@@ -73,9 +72,9 @@
 	content: " ";
 	display: block;
 	z-index: 2;
+	-moz-transform: translate(0, -.05em);
+	-o-transform: translate(0, -.1em);
 }
-
-
 
 
 .departure-board span.fold {
@@ -84,10 +83,6 @@
 	height: 0;
 	top: .65em;
 }
-
-
-
-
 
 
 .departure-board span.flap {
@@ -126,17 +121,21 @@
 
 
 .departure-board span.flap.falling span.text {
+	-webkit-backface-visibility: hidden;
 	border-top: .03em solid #444;
-	border-bottom: .03em solid #444;
-	
-    background: rgb(30, 30, 30);
-	position: relative;
+	border-bottom: .03em solid #444;	
+    background: #000;
 	display: block;
+	position: relative;
+	
 	-webkit-transform: scaleY(1); 
 	-moz-transform: scaleY(1); 
-	-webkit-transition: -webkit-transform .05s linear;
-	-moz-transition: -moz-transform .05s linear;
-
-	-webkit-backface-visibility: hidden;
+	-o-transform: scaleY(1); 
+	transform: scaleY(1); 
+	
+	-webkit-transition: -webkit-transform linear;
+	-moz-transition: -moz-transform linear;
+	-o-transition: -o-transform linear;
+	transition: transform linear;
 }
 

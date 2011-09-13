@@ -61,7 +61,7 @@ DepartureBoard.prototype.setValue = function (value) {
 				window.setTimeout (function () {
 					var letterValue = value[r].substr (i, 1) || '';
 					me._letters[r][i].setValue (letterValue);
-				}, 20 * i + Math.random () * 400);
+				}, 2000 * r + 25 * i + Math.random () * 400);
 			})(r, i);
 		}
 	}
@@ -106,6 +106,10 @@ DepartureBoard.Letter = function () {
 	
 	this._fallingText = document.createElement ('span');
 	this._fallingText.className = 'text';
+
+	this._fallingText.style.WebkitTransitionDuration = this._fallingText.style.MozTransitionDuration = 
+		this._fallingText.style.OTransitionDuration = this._fallingText.style.transitionDuration = DepartureBoard.Letter.DROP_TIME * 0.5 + 'ms';
+
 	this._falling.appendChild (this._fallingText);
 	
 	
@@ -113,6 +117,9 @@ DepartureBoard.Letter = function () {
 	this._interval = null;
 	this._stopAt = null;
 };
+
+
+DepartureBoard.Letter.DROP_TIME = 100;
 
 
 
@@ -128,7 +135,7 @@ DepartureBoard.Letter.prototype.spin = function (clear) {
 	if (clear !== false) this._stopAt = null;
 	
 	var me = this;	
-	this._interval = window.setInterval (function () { me._tick (); }, 150);
+	this._interval = window.setInterval (function () { me._tick (); }, DepartureBoard.Letter.DROP_TIME * 1.1);
 };
 
 
@@ -138,7 +145,6 @@ DepartureBoard.Letter.prototype.setValue = function (value) {
 	this._stopAt = DepartureBoard.LETTERS.indexOf (value);
 
 	if (this._stopAt < 0) this._stopAt = 0;
-
 	if (!this._interval && this._index != this._stopAt) this.spin (false);
 };
 
@@ -162,22 +168,22 @@ DepartureBoard.Letter.prototype._tick = function () {
 	this._topText.innerHTML = newValue;
 
 	window.setTimeout (function () {
-		fallingTextStyle.WebkitTransitionTimingFunction = fallingTextStyle.MozTransitionTimingFunction = 'ease-in';
-		fallingTextStyle.WebkitTransform = fallingTextStyle.MozTransform ='scaleY(0)';
+		fallingTextStyle.WebkitTransitionTimingFunction = fallingTextStyle.MozTransitionTimingFunction = fallingTextStyle.OTransitionTimingFunction = fallingTextStyle.transitionTimingFunction = 'ease-in';
+		fallingTextStyle.WebkitTransform = fallingTextStyle.MozTransform = fallingTextStyle.OTransform = fallingTextStyle.transform = 'scaleY(0)';
 	}, 1);
-	
+
 
 	window.setTimeout (function () {
 		me._fallingText.innerHTML = newValue;
-	
+
 		fallingStyle.top = '-.03em';
 		fallingStyle.bottom = 'auto';
 		fallingTextStyle.top = '-.65em';
 		
-		fallingTextStyle.WebkitTransitionTimingFunction = fallingTextStyle.MozTransitionTimingFunction = 'ease-out';
-		fallingTextStyle.WebkitTransform = fallingTextStyle.MozTransform = 'scaleY(1)';
-	}, 50);
-	
+		fallingTextStyle.WebkitTransitionTimingFunction = fallingTextStyle.MozTransitionTimingFunction = fallingTextStyle.OTransitionTimingFunction = fallingTextStyle.transitionTimingFunction = 'ease-out';
+		fallingTextStyle.WebkitTransform = fallingTextStyle.MozTransform = fallingTextStyle.OTransform = fallingTextStyle.transform = 'scaleY(1)';
+	}, DepartureBoard.Letter.DROP_TIME / 2);
+
 	
 	window.setTimeout (function () {
 		me._bottomText.innerHTML = newValue;
@@ -186,7 +192,7 @@ DepartureBoard.Letter.prototype._tick = function () {
 		fallingStyle.top = 'auto';
 		fallingStyle.bottom = 0;
 		fallingTextStyle.top = 0;		
-	}, 100);
+	}, DepartureBoard.Letter.DROP_TIME);
 	
 
 	if (this._index === this._stopAt) {
